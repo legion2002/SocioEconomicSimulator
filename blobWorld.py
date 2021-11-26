@@ -1,5 +1,7 @@
 import random
 
+
+
 class Blob:
     def __init__(self,friendliness,greediness,productivity,motivation,energy):
         self.friendliness = friendliness
@@ -7,12 +9,12 @@ class Blob:
         self.productivity = productivity
         self.motivation = motivation
         self.energy = energy
-        self.produce = 0  #zero for now
+        self.days = 14
 
 
     def setEnergy(self,delta):
         #write code for decreasing/increasing energy by delta
-        self.energy += delta
+        self.energy = delta
 
         if(self.energy > 20):
             self.energy = 20
@@ -56,16 +58,27 @@ class Blob:
     def getProductivity(self):
         return self.productivity
 
-    def getProduce(self):
-        return self.produce
-
-    def setProduce(self, delta):
-        self.produce += delta
 
     def reproduce(self):
         #write code for altering the parameters when reproducing
         #also make a new blob as reproduction produces 2 blobs
-        pass
+        if(self.greediness < 6 and self.energy >= 10):
+            self.setEnergy(self.energy // 2)
+            return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
+
+        elif(self.greediness >= 6 and self.greediness < 9 and self.energy >= 12):
+            self.setEnergy(self.energy // 2)
+            return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
+
+        elif(self.greediness >= 9 and self.greediness <= 10 and self.energy >= 14):
+            self.setEnergy(self.energy // 2)
+            return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
+
+        else:
+            return null
+
+
+
     
     def die(self):
         #if the energy goes 0 than the blob dies
@@ -75,13 +88,13 @@ class Blob:
     def hunt(self):
         #put if else statements here to determine which tree to work upon
         if(self.motivation <= 4):
-            Banana.hunt(self)
+            banana_tree.hunt(self)
 
         elif(self.motivation >= 5 and self.motivation <= 7):
-            Apple.hunt(self)
+            apple_tree.hunt(self)
 
         else:
-            Mango.hunt(self)
+            mango_tree.hunt(self)
 
 
     def borrow(self,blob):
@@ -102,13 +115,13 @@ class Tree:
         #code to alter the energy etc levels of the blob if he works on this tree
         Blob.setMotivation(self.increaseMotivation)
         if(Blob.getProductivity() == 1):
-            Blob.setProduce(self.increaseForProdOne)
+            Blob.setEnergy(self.energy + self.increaseForProdOne)
 
         elif(Blob.getProductivity == 2):
-            Blob.setProduce(self.increaseForProdTwo)
+            Blob.setEnergy(self.energy + self.increaseForProdTwo)
 
         else:
-            Blob.setProduce(self.increaseForProdThree)
+            Blob.setEnergy(self.energy + self.increaseForProdThree)
 
 
     def setIncreaseMotivation(self, motivation):
@@ -145,3 +158,8 @@ class Mango(Tree):
 class Day:
     #not sure if this is needed
     pass
+
+
+banana_tree = Banana()
+apple_tree = Apple()
+mango_tree = Mango()
