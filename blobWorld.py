@@ -44,7 +44,7 @@ class Blob:
         #write code for decreasing/increasing productivity by delta
         self.productivity += delta
 
-        self.productivity += delta
+        #self.productivity += delta
 
         if(self.productivity > 3):
             self.productivity = 3
@@ -64,18 +64,16 @@ class Blob:
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
-        elif(self.greediness >= 6 and self.greediness < 9 and self.energy >= 12):
+        elif(self.greediness in range(6,9) and self.energy >= 12):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
-        elif(self.greediness >= 9 and self.greediness <= 10 and self.energy >= 14):
+        elif(self.greediness in range(9,11) and self.energy >= 14):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
         else:
             return None
-
-
 
     
     def die(self):
@@ -155,7 +153,7 @@ class Apple(Tree):
         else:
             Blob.setMotivation(1)
 
-        super().hunt(Blob)
+        super().hunt(Blob) 
 
 
 class Mango(Tree):
