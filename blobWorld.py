@@ -86,21 +86,21 @@ class Blob:
     def hunt(self):
         #put if else statements here to determine which tree to work upon
         if(self.motivation <= 4):
-            banana_tree.hunt(self)
+            return banana_tree.hunt(self)
 
         elif(self.motivation >= 5 and self.motivation <= 7):
-            apple_tree.hunt(self)
+            return apple_tree.hunt(self)
 
         else:
-            mango_tree.hunt(self)
+            return mango_tree.hunt(self)
 
     def hunt2(self):
         #put if else statements here to determine which tree to work upon
         if(self.motivation >= 5 and self.motivation <= 7):
-            apple_tree.hunt(self)
+            return apple_tree.hunt(self)
 
         else:
-            mango_tree.hunt(self)
+            return mango_tree.hunt(self)
 
 
     def borrow(self,blob):
@@ -122,12 +122,15 @@ class Tree:
         Blob.setMotivation(self.increaseMotivation)
         if(Blob.getProductivity() == 1):
             Blob.setEnergy(Blob.energy + self.increaseForProdOne)
+            return self.increaseForProdOne
 
         elif(Blob.getProductivity == 2):
             Blob.setEnergy(Blob.energy + self.increaseForProdTwo)
+            return self.increaseForProdTwo
 
         else:
             Blob.setEnergy(Blob.energy + self.increaseForProdThree)
+            return self.increaseForProdThree
 
 
     def setIncreaseMotivation(self, motivation):
