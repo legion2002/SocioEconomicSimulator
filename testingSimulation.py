@@ -11,7 +11,7 @@ def day():
 	global blob_list
 	global counter
 	global daily_produce
-  	daily_produce = 0
+	daily_produce = 0
 	print("Day : "  , counter)
 	tempBlobList = blob_list.copy()
 	blob_list = []
@@ -21,8 +21,9 @@ def day():
 		else:
 			blob_list.append(blob)
 
-		
-		daily_produce += blob.hunt()
+		a = blob.hunt()
+		if(a is not None):
+			daily_produce += a
 
 	list_of_borrowers = blob_list.copy()
 	list_of_borrowers = sorted(list_of_borrowers, key = lambda x: x.friendliness, reverse = True)
@@ -53,7 +54,7 @@ def calamityDay():
 	global counter
 	global blob_list
 	global daily_produce
-  	daily_produce = 0
+	daily_produce = 0
 	print("Day : " , counter)
 	tempBlobList = blob_list.copy()
 	blob_list = []
@@ -63,7 +64,9 @@ def calamityDay():
 		else:
 			blob_list.append(blob)
 
-		daily_produce += blob.hunt2()
+		a = blob.hunt2()
+		if(a is not None):
+			daily_produce += a
 
 	list_of_borrowers = blob_list.copy()
 	list_of_borrowers = sorted(list_of_borrowers, key = lambda x: x.friendliness, reverse = True)
@@ -111,10 +114,10 @@ def main():
 	num_simulations = 14
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
-		print("testing")
+		#print("testing")
 
 	population_list = []
- 	daily_produce_list = []
+	daily_produce_list = []
 	i = 1
 	while(i<=56):
 
@@ -128,10 +131,10 @@ def main():
 
 	days = [i for i in range(1,57)] #for the x axis
 	y = [population_list, daily_produce_list]
-	for i in range(len(y[0])):
-		plt.plot(days,[pt[i] for pt in y],label = 'id %s'%i)	
+	plt.plot(days,population_list)
+	plt.plot(days,daily_produce_list)	
  
- 	plt.plot(days,population_list)
+	#plt.plot(days,population_list)
 	plt.show()
 	
 	
