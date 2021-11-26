@@ -1,11 +1,4 @@
-
-
-
-			
-
 import random
-
-
 
 class Blob:
     def __init__(self,friendliness,greediness,productivity,motivation,energy):
@@ -96,6 +89,14 @@ class Blob:
             banana_tree.hunt(self)
 
         elif(self.motivation >= 5 and self.motivation <= 7):
+            apple_tree.hunt(self)
+
+        else:
+            mango_tree.hunt(self)
+
+    def hunt2(self):
+        #put if else statements here to determine which tree to work upon
+        if(self.motivation >= 5 and self.motivation <= 7):
             apple_tree.hunt(self)
 
         else:
