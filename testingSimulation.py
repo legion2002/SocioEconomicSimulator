@@ -7,7 +7,6 @@ blob_list = []
 def day():
 	print("Day : ")
 	tempBlobList = blob_list.copy()
-	blob_list = []
 	for blob in tempBlobList:
 		if(blob.energy == 0 or blob.days == 0):
 			pass
@@ -39,6 +38,41 @@ def day():
 		blob.setEnergy(blob.getEnergy() - 4)
 		blob.days -= 1
 
+def calamityDay():
+
+	print("Day : ")
+	tempBlobList = blob_list.copy()
+	for blob in tempBlobList:
+		if(blob.energy == 0 or blob.days == 0):
+			pass
+		else:
+			blob_list.append(blob)
+
+		blob.hunt2()
+
+	list_of_borrowers = blob_list.copy()
+	list_of_borrowers = sorted(list_of_borrowers, key = lambda x: x.friendliness, reverse = True)
+
+	for blob in blob_list:
+		if(blob.getEnergy() <= 4):
+			for bf in list_of_borrowers:
+				if(bf.friendliness >= 9 and bf.energy >= 10 - blob.getEnergy()):
+					bf.setEnergy(bf.getEnergy() - 5 + blob.getEnergy())
+					blob.setEnergy(5)
+
+					blob.setProductivity(-1)
+					bf.setProductivity(1)
+
+	for blob in blob_list:
+		reproduced = blob.reproduce()
+		if(reproduced != None):
+			blob_list.append(reproduced)
+
+
+	for blob in blob_list:
+		blob.setEnergy(blob.getEnergy() - 4)
+		blob.setProductivity(1)
+		blob.days -= 1
 
 			
 
@@ -61,9 +95,13 @@ def main():
 
 	
 	i = 0
-	while(i<=50):
+	while(i<=56):
 		day()
-		i+=
+		if(i%10 == 2):
+			calamityDay()
+		else:
+			day()
+		i+=1
 
 	
 
