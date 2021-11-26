@@ -65,10 +65,12 @@ class Blob:
     def reproduce(self):
         #write code for altering the parameters when reproducing
         #also make a new blob as reproduction produces 2 blobs
-
+        pass
+    
     def die(self):
         #if the energy goes 0 than the blob dies
 	   # del self
+       pass
 
     def hunt(self):
         #put if else statements here to determine which tree to work upon
@@ -84,6 +86,7 @@ class Blob:
 
     def borrow(self,blob):
         #code for borrowing(the blob paramter denotes the blob from whom energy is borrowed)
+        pass
 
         
 class Tree:
@@ -141,3 +144,4 @@ class Mango(Tree):
 
 class Day:
     #not sure if this is needed
+    pass
