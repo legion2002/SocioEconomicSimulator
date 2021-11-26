@@ -4,9 +4,8 @@ import blobWorld
 
 blob_list = []
 
-
 def day():
-	print("Day : " + env.now)
+	print("Day : ")
 	for blob in blob_list:
 		if(blob.energy == 0 or blob.days == 0):
 			blob_list.remove(blob)
@@ -39,18 +38,16 @@ def day():
 			
 
 def generateBlobs():
-	friendliness = randint(1, 10)
-	greediness = randint(1, 10)
-	productivity = randint(1,3)
-	motivation = randint(1, 10)
+	friendliness = random.randint(1, 10)
+	greediness = random.random.randint(1, 10)
+	productivity = random.randint(1,3)
+	motivation = random.randint(1, 10)
 	energy = 10
-	return Blob(friendliness,greediness,productivity,motivation,energy)
+	return blobWorld.Blob(friendliness,greediness,productivity,motivation,energy)
 
 
 def main():
 	#Creating a list of blobs
-
-	
 
 	max_blobs = 100
 	num_simulations = 14
@@ -62,4 +59,3 @@ def main():
 	env = simpy.Environment()
 	env.process(day())
 	env.run()
-
