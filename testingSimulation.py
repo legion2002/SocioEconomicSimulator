@@ -8,7 +8,7 @@ def generateBlobs():
 	productivity = randint(1,3)
 	motivation = randint(1, 10)
 	energy = 10
-	return 
+	return Blob(friendliness,greediness,productivity,motivation,energy)
 
 
 def main():
@@ -18,4 +18,6 @@ def main():
 
 	max_blobs = 100
 	num_simulations = 14
+	for i in range(max_blobs):
+		blob_list.append(generateBlobs())
 
