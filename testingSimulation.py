@@ -1,18 +1,24 @@
 import simpy
 import random
 import blobWorld
+import matplotlib.pyplot as plt
+import numpy as np
 
 blob_list = []
-
+counter = 0
 def day():
-	print("Day : ")
+	global blob_list
+	global counter
+	print("Day : "  , counter)
 	tempBlobList = blob_list.copy()
+	blob_list = []
 	for blob in tempBlobList:
 		if(blob.energy == 0 or blob.days == 0):
 			pass
 		else:
 			blob_list.append(blob)
 
+		
 		blob.hunt()
 
 	list_of_borrowers = blob_list.copy()
@@ -27,23 +33,27 @@ def day():
 
 					blob.setProductivity(-1)
 					bf.setProductivity(1)
-
-	for blob in blob_list:
-		reproduced = blob.reproduce()
-		if(reproduced != None):
-			blob_list.append(reproduced)
+	if(counter%4 == 0):
+		for blob in blob_list:
+			reproduced = blob.reproduce()
+			if(reproduced != None):
+				blob_list.append(reproduced)
 
 
 	for blob in blob_list:
 		blob.setEnergy(blob.getEnergy() - 4)
 		blob.days -= 1
+	
+	counter +=1
 
 def calamityDay():
-
-	print("Day : ")
+	global counter
+	global blob_list
+	print("Day : " , counter)
 	tempBlobList = blob_list.copy()
+	blob_list = []
 	for blob in tempBlobList:
-		if(blob.energy == 0 or blob.days == 0):
+		if(blob.energy <= 3 or blob.days == 0):
 			pass
 		else:
 			blob_list.append(blob)
@@ -63,10 +73,10 @@ def calamityDay():
 					blob.setProductivity(-1)
 					bf.setProductivity(1)
 
-	for blob in blob_list:
-		reproduced = blob.reproduce()
-		if(reproduced != None):
-			blob_list.append(reproduced)
+	# for blob in blob_list:
+	# 	reproduced = blob.reproduce()
+	# 	if(reproduced != None):
+	# 		blob_list.append(reproduced)
 
 
 	for blob in blob_list:
@@ -74,6 +84,10 @@ def calamityDay():
 		blob.setProductivity(1)
 		blob.days -= 1
 
+	
+
+	
+	counter +=1
 			
 
 def generateBlobs():
@@ -93,17 +107,23 @@ def main():
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
 
-	
-	i = 0
+	population_list = []
+	i = 1
 	while(i<=56):
-		day()
-		if(i%10 == 2):
+
+		if(i%7 == 0):
 			calamityDay()
 		else:
 			day()
 		i+=1
+		population_list.append(len(blob_list))
 
+	days = [i for i in range(1,57)] #for the x axis
+	plt.plot(days,population_list)
+	plt.show()
 	
+	
+
 
 if __name__ == "__main__":
     main()
