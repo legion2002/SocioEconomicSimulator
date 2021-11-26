@@ -2,6 +2,7 @@ import simpy
 import random
 import blobWorld
 
+blob_list = []
 
 
 def day():
@@ -27,7 +28,7 @@ def day():
 
 	for blob in blob_list:
 		reproduced = blob.reproduce()
-		if(reproduced != null):
+		if(reproduced != None):
 			blob_list.append(reproduced)
 
 
@@ -49,7 +50,7 @@ def generateBlobs():
 def main():
 	#Creating a list of blobs
 
-	blob_list = []
+	
 
 	max_blobs = 100
 	num_simulations = 14
