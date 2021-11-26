@@ -5,7 +5,7 @@ import blobWorld
 
 
 def day():
-
+	print("Day : " + env.now)
 	for blob in blob_list:
 		if(blob.energy == 0 or blob.days == 0):
 			blob_list.remove(blob)
@@ -33,6 +33,7 @@ def day():
 
 	for blob in blob_list:
 		blob.setEnergy(blob.getEnergy() - 4)
+		blob.days -= 1
 			
 			
 
@@ -54,4 +55,10 @@ def main():
 	num_simulations = 14
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
+
+	print(blob_list)
+
+	env = simpy.Environment()
+	env.process(day())
+	env.run()
 
