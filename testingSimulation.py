@@ -53,9 +53,10 @@ def main():
 	num_simulations = 14
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
+		print("testing")
 
 	print(blob_list)
 
-	env = simpy.Environment()
-	env.process(day())
-	env.run()
+	#env = simpy.Environment()
+	#env.process(day())
+	#env.run()

@@ -1,7 +1,5 @@
 import random
 
-
-
 class Blob:
     def __init__(self,friendliness,greediness,productivity,motivation,energy):
         self.friendliness = friendliness
@@ -75,7 +73,7 @@ class Blob:
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
         else:
-            return null
+            return None
 
 
 
@@ -91,6 +89,14 @@ class Blob:
             banana_tree.hunt(self)
 
         elif(self.motivation >= 5 and self.motivation <= 7):
+            apple_tree.hunt(self)
+
+        else:
+            mango_tree.hunt(self)
+
+    def hunt2(self):
+        #put if else statements here to determine which tree to work upon
+        if(self.motivation >= 5 and self.motivation <= 7):
             apple_tree.hunt(self)
 
         else:
@@ -115,13 +121,13 @@ class Tree:
         #code to alter the energy etc levels of the blob if he works on this tree
         Blob.setMotivation(self.increaseMotivation)
         if(Blob.getProductivity() == 1):
-            Blob.setEnergy(self.energy + self.increaseForProdOne)
+            Blob.setEnergy(Blob.energy + self.increaseForProdOne)
 
         elif(Blob.getProductivity == 2):
-            Blob.setEnergy(self.energy + self.increaseForProdTwo)
+            Blob.setEnergy(Blob.energy + self.increaseForProdTwo)
 
         else:
-            Blob.setEnergy(self.energy + self.increaseForProdThree)
+            Blob.setEnergy(Blob.energy + self.increaseForProdThree)
 
 
     def setIncreaseMotivation(self, motivation):
@@ -142,11 +148,11 @@ class Apple(Tree):
     def hunt(self, Blob):
         generateMotivation = random.randint(0,2)
         if(generateMotivation == 1):
-            self.setMotivation(-1)
+            Blob.setMotivation(-1)
         else:
-            self.setMotivation(1)
+            Blob.setMotivation(1)
 
-        super().hunt()
+        super().hunt(Blob)
 
 
 class Mango(Tree):
