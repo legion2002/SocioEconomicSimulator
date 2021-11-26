@@ -6,9 +6,13 @@ blob_list = []
 
 def day():
 	print("Day : ")
-	for blob in blob_list:
+	tempBlobList = blob_list.copy()
+	blob_list = []
+	for blob in tempBlobList:
 		if(blob.energy == 0 or blob.days == 0):
-			blob_list.remove(blob)
+			pass
+		else:
+			blob_list.append(blob)
 
 		blob.hunt()
 
@@ -20,7 +24,7 @@ def day():
 			for bf in list_of_borrowers:
 				if(bf.friendliness > 6 and bf.energy >= 10 - blob.getEnergy()):
 					bf.setEnergy(bf.getEnergy() - 5 + blob.getEnergy())
-					blob.setEnergy(5);
+					blob.setEnergy(5)
 
 					blob.setProductivity(-1)
 					bf.setProductivity(1)
@@ -34,28 +38,34 @@ def day():
 	for blob in blob_list:
 		blob.setEnergy(blob.getEnergy() - 4)
 		blob.days -= 1
-			
+
+
 			
 
 def generateBlobs():
 	friendliness = random.randint(1, 10)
-	greediness = random.random.randint(1, 10)
+	greediness = random.randint(1, 10)
 	productivity = random.randint(1,3)
 	motivation = random.randint(1, 10)
 	energy = 10
 	return blobWorld.Blob(friendliness,greediness,productivity,motivation,energy)
 
 
-def main():
-	#Creating a list of blobs
 
-	max_blobs = 100
+def main():
+	#Creating a list of blobs//print("hi")
+	max_blobs = 10
 	num_simulations = 14
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
 
-	print(blob_list)
+	
+	i = 0
+	while(i<=50):
+		day()
+		i+=
 
-	env = simpy.Environment()
-	env.process(day())
-	env.run()
+	
+
+if __name__ == "__main__":
+    main()
