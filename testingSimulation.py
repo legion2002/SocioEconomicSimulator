@@ -45,7 +45,7 @@ def day():
 
 
 	for blob in blob_list:
-		blob.setEnergy(blob.getEnergy() - 4)
+		blob.setEnergy(blob.getEnergy() - 6)
 		blob.days -= 1
 	
 	counter +=1
@@ -75,7 +75,7 @@ def calamityDay():
 		if(blob.getEnergy() <= 4):
 			for bf in list_of_borrowers:
 				if(bf.friendliness >= 9 and bf.energy >= 10 - blob.getEnergy()):
-					bf.setEnergy(bf.getEnergy() - 5 + blob.getEnergy())
+					bf.setEnergy(bf.getEnergy() - 1 + blob.getEnergy())
 					blob.setEnergy(5)
 
 					blob.setProductivity(-1)
@@ -88,7 +88,7 @@ def calamityDay():
 
 
 	for blob in blob_list:
-		blob.setEnergy(blob.getEnergy() - 4)
+		blob.setEnergy(blob.getEnergy() - 1)
 		blob.setProductivity(1)
 		blob.days -= 1
 
@@ -111,7 +111,7 @@ def generateBlobs():
 def main():
 	#Creating a list of blobs//print("hi")
 	max_blobs = 10
-	num_simulations = 14
+	num_simulations = 50
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
 		#print("testing")
@@ -119,7 +119,7 @@ def main():
 	population_list = []
 	daily_produce_list = []
 	i = 1
-	while(i<=56):
+	while(i<= 499):
 
 		if(i%7 == 0):
 			calamityDay()
@@ -129,7 +129,7 @@ def main():
 		population_list.append(len(blob_list))
 		daily_produce_list.append(daily_produce)
 
-	days = [i for i in range(1,57)] #for the x axis
+	days = [i for i in range(1,500)] #for the x axis
 	y = [population_list, daily_produce_list]
 	plt.plot(days,population_list)
 	plt.plot(days,daily_produce_list)	
