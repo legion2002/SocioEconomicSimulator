@@ -4,13 +4,26 @@ import blobWorld
 import matplotlib.pyplot as plt
 import numpy as np
 
+a_g = 0
+a_ng = 0
+na_g = 0
+na_ng = 0
+offset = 1
+
+
 daily_produce = 0
 blob_list = []
 counter = 0
 def day():
+	global a_g,a_ng,na_g,na_ng
+	global offset
 	global blob_list
 	global counter
 	global daily_produce
+	a_g = 0
+	a_ng = 0
+	na_g = 0
+	na_ng = 0
 	daily_produce = 0
 	print("Day : "  , counter)
 	tempBlobList = blob_list.copy()
@@ -31,9 +44,9 @@ def day():
 	for blob in blob_list:
 		if(blob.getEnergy() <= 4):
 			for bf in list_of_borrowers:
-				if(bf.friendliness > 6 and bf.energy >= 10 - blob.getEnergy()):
-					bf.setEnergy(bf.getEnergy() - 5 + blob.getEnergy())
-					blob.setEnergy(5)
+				if(bf.friendliness > 6 and bf.energy >= 10 + offset - blob.getEnergy()):
+					bf.setEnergy(bf.getEnergy() - 5 + blob.getEnergy() - offset)
+					blob.setEnergy(5 + offset)
 
 					blob.setProductivity(-1)
 					bf.setProductivity(1)
@@ -45,15 +58,32 @@ def day():
 
 
 	for blob in blob_list:
-		blob.setEnergy(blob.getEnergy() - 6)
+		blob.setEnergy(blob.getEnergy() - 4 - offset)
 		blob.days -= 1
+		if(blob.greediness > 5 and blob.friendliness > 5):
+			a_g += 1
+		elif(blob.greediness > 5 and blob.friendliness < 5):
+			a_ng += 1
+		elif(blob.greediness < 5 and blob.friendliness > 5):
+			na_g += 1
+		else:
+			na_ng +=1
+   
+
+		
 	
 	counter +=1
 
 def calamityDay():
+	global a_g,a_ng,na_g,na_ng
+	global offset
 	global counter
 	global blob_list
 	global daily_produce
+	a_g = 0
+	a_ng = 0
+	na_g = 0
+	na_ng = 0
 	daily_produce = 0
 	print("Day : " , counter)
 	tempBlobList = blob_list.copy()
@@ -74,27 +104,25 @@ def calamityDay():
 	for blob in blob_list:
 		if(blob.getEnergy() <= 4):
 			for bf in list_of_borrowers:
-				if(bf.friendliness >= 9 and bf.energy >= 10 - blob.getEnergy()):
-					bf.setEnergy(bf.getEnergy() - 1 + blob.getEnergy())
-					blob.setEnergy(5)
+				if(bf.friendliness >= 9 and bf.energy >= 10 - blob.getEnergy() + offset):
+					bf.setEnergy(bf.getEnergy() - 5 + blob.getEnergy() - offset)
+					blob.setEnergy(5 + 1 )
 
 					blob.setProductivity(-1)
 					bf.setProductivity(1)
 
-	# for blob in blob_list:
-	# 	reproduced = blob.reproduce()
-	# 	if(reproduced != None):
-	# 		blob_list.append(reproduced)
-
-
 	for blob in blob_list:
-		blob.setEnergy(blob.getEnergy() - 1)
-		blob.setProductivity(1)
+		blob.setEnergy(blob.getEnergy() - 4 - offset)
 		blob.days -= 1
+		if(blob.greediness > 5 and blob.friendliness > 5):
+			a_g += 1
+		elif(blob.greediness > 5 and blob.friendliness < 5):
+			a_ng += 1
+		elif(blob.greediness < 5 and blob.friendliness > 5):
+			na_g += 1
+		else:
+			na_ng +=1
 
-	
-
-	
 	counter +=1
 			
 
@@ -102,48 +130,63 @@ def generateBlobs():
 	friendliness = random.randint(1, 10)
 	greediness = random.randint(1, 10)
 	productivity = random.randint(1,3)
-	motivation = random.randint(1, 10)
+	motivation = random.randint(1, 5)
 	energy = 10
 	return blobWorld.Blob(friendliness,greediness,productivity,motivation,energy)
 
 
 
 def main():
+	global offset
 	#Creating a list of blobs//print("hi")
 	max_blobs = 10
-	num_simulations = 50
+	num_simulations = 14
 	for i in range(max_blobs):
 		blob_list.append(generateBlobs())
 		#print("testing")
 
 	population_list = []
 	daily_produce_list = []
+	ag =[]
+	ang=[]
+	nag=[]
+	nang=[]
 	i = 1
-	while(i<= 499):
+	while(i<=500):
 
-		if(i%7 == 0):
+		if(i%70 == 2):
 			calamityDay()
 		else:
 			day()
 		i+=1
 		population_list.append(len(blob_list))
 		daily_produce_list.append(daily_produce)
+		ag.append(a_g)
+		ang.append(a_ng)
+		nag.append(na_g)
+		nang.append(na_ng)
 
-	days = [i for i in range(1,500)] #for the x axis
+		if(daily_produce_list[-1] >= 10000):
+			offset = 2
+		else:
+			offset = 1
+		
+
+	days = [i for i in range(1,501)] #for the x axis
 	y = [population_list, daily_produce_list]
-	plt.plot(days,population_list)
-	plt.plot(days,daily_produce_list)	
- 
-	#plt.plot(days,population_list)
-	plt.show()
+
+	# plt.plot(days,population_list,color='green')
+	# plt.plot(days,daily_produce_list,color='orange')
+	# plt.show(block=True)
+
+	plt.plot(days,ag,color='green')
+	plt.plot(days,ang,color='yellow')
+	plt.plot(days,nag,color='red')
+	plt.plot(days,nang,color='blue')
+	plt.show(block=True)
+
 	
-	
 
-
-
-	#env = simpy.Environment()
-	#env.process(day())
-	#env.run()
 
 if __name__ == "__main__":
     main()
