@@ -29,8 +29,8 @@ class Blob:
        #write code for decreasing/increasing motivation by delta
         self.motivation += delta
 
-        if(self.motivation > 10):
-            self.motivation = 10
+        if(self.motivation > 5):
+            self.motivation = 5
 
         if(self.motivation < 0):
             self.motivation = 0
@@ -60,15 +60,15 @@ class Blob:
     def reproduce(self):
         #write code for altering the parameters when reproducing
         #also make a new blob as reproduction produces 2 blobs
-        if(self.greediness < 6 and self.energy >= 10):
+        if(self.greediness < 6 and self.energy >= 12):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
-        elif(self.greediness in range(6,9) and self.energy >= 12):
+        elif(self.greediness in range(6,9) and self.energy >= 14):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
-        elif(self.greediness in range(9,11) and self.energy >= 14):
+        elif(self.greediness in range(9,11) and self.energy >= 16):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
@@ -83,10 +83,10 @@ class Blob:
 
     def hunt(self):
         #put if else statements here to determine which tree to work upon
-        if(self.motivation <= 4):
+        if(self.motivation <= 2):
             return banana_tree.hunt(self)
 
-        elif(self.motivation >= 5 and self.motivation <= 7):
+        elif(self.motivation >= 3 and self.motivation <= 4):
             return apple_tree.hunt(self)
 
         else:
@@ -94,7 +94,7 @@ class Blob:
 
     def hunt2(self):
         #put if else statements here to determine which tree to work upon
-        if(self.motivation >= 5 and self.motivation <= 7):
+        if(self.motivation >= 3 and self.motivation <= 4):
             return apple_tree.hunt(self)
 
         else:
@@ -138,7 +138,7 @@ class Tree:
 class Banana(Tree):
     #code for banana
     def __init__(self):
-        Tree.__init__(self,"banana", 1, 2, 4, 2)
+        Tree.__init__(self,"banana", 1, 2, 3, 2)
 
 
 class Apple(Tree):
@@ -147,9 +147,11 @@ class Apple(Tree):
         Tree.__init__(self,"apple", 2, 4, 6, 1)
 
     def hunt(self, Blob):
-        generateMotivation = random.randint(0,2)
+        generateMotivation = random.randint(0,3)
         if(generateMotivation == 1):
             Blob.setMotivation(-1)
+        elif(generateMotivation == 0):
+            Blob.setMotivation(0)
         else:
             Blob.setMotivation(1)
 
@@ -159,7 +161,7 @@ class Apple(Tree):
 class Mango(Tree):
     #code for mango
     def __init__(self):
-        Tree.__init__(self,"mango", 4, 8, 8, -2)
+        Tree.__init__(self,"mango", 4, 6, 8, -2)
 
 
 class Day:
