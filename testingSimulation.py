@@ -126,9 +126,33 @@ def calamityDay():
 	counter +=1
 			
 
-def generateBlobs():
-	friendliness = random.randint(1, 10)
-	greediness = random.randint(1, 10)
+def generateBlobsAG():
+	friendliness = random.randint(1, 5)
+	greediness = random.randint(6, 10)
+	productivity = random.randint(1,3)
+	motivation = random.randint(1, 5)
+	energy = 10
+	return blobWorld.Blob(friendliness,greediness,productivity,motivation,energy)
+
+def generateBlobsNAG():
+	friendliness = random.randint(1, 5)
+	greediness = random.randint(1, 5)
+	productivity = random.randint(1,3)
+	motivation = random.randint(1, 5)
+	energy = 10
+	return blobWorld.Blob(friendliness,greediness,productivity,motivation,energy)
+
+def generateBlobsANG():
+	friendliness = random.randint(6, 10)
+	greediness = random.randint(6, 10)
+	productivity = random.randint(1,3)
+	motivation = random.randint(1, 5)
+	energy = 10
+	return blobWorld.Blob(friendliness,greediness,productivity,motivation,energy)
+
+def generateBlobsNANG():
+	friendliness = random.randint(6, 10)
+	greediness = random.randint(1, 5)
 	productivity = random.randint(1,3)
 	motivation = random.randint(1, 5)
 	energy = 10
@@ -139,10 +163,14 @@ def generateBlobs():
 def main():
 	global offset
 	#Creating a list of blobs//print("hi")
-	max_blobs = 10
+	max_blobs = 40
 	num_simulations = 14
-	for i in range(max_blobs):
-		blob_list.append(generateBlobs())
+	for i in range(max_blobs // 4):
+		blob_list.append(generateBlobsAG())
+		blob_list.append(generateBlobsANG())
+		blob_list.append(generateBlobsNANG())
+		blob_list.append(generateBlobsNAG())
+  
 		#print("testing")
 
 	population_list = []
@@ -152,7 +180,7 @@ def main():
 	nag=[]
 	nang=[]
 	i = 1
-	while(i<=500):
+	while(i<=1000):
 
 		if(i%70 == 2):
 			calamityDay()
@@ -172,17 +200,17 @@ def main():
 			offset = 1
 		
 
-	days = [i for i in range(1,501)] #for the x axis
+	days = [i for i in range(1,1001)] #for the x axis
 	y = [population_list, daily_produce_list]
 
-	# plt.plot(days,population_list,color='green')
-	# plt.plot(days,daily_produce_list,color='orange')
-	# plt.show(block=True)
+	plt.plot(days,population_list,color='green')
+	plt.plot(days,daily_produce_list,color='orange')
+	plt.show(block=True)
 
-	plt.plot(days,ag,color='green')
-	plt.plot(days,ang,color='yellow')
-	plt.plot(days,nag,color='red')
-	plt.plot(days,nang,color='blue')
+	plt.plot(days,ag,color='red') #Doesnt repro and gives
+	plt.plot(days,ang,color='green') #Doesnt repro and doesnt give
+	plt.plot(days,nag,color='darkblue')  #repro and gives
+	plt.plot(days,nang,color='orange') #repro and doesnt give
 	plt.show(block=True)
 
 	

@@ -60,11 +60,12 @@ class Blob:
     def reproduce(self):
         #write code for altering the parameters when reproducing
         #also make a new blob as reproduction produces 2 blobs
-        if(self.greediness < 6 and self.energy >= 12):
+        if(self.greediness < 5 and self.energy >= 14):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
+        
 
-        elif(self.greediness in range(6,9) and self.energy >= 14):
+        elif(self.greediness in range(6,9) and self.energy >= 15):
             self.setEnergy(self.energy // 2)
             return Blob(self.friendliness,self.greediness,self.productivity,self.motivation,self.energy)
 
